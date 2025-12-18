@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "array.h"
+#include "./raylib/src/raylib.h"
 
 void *my_alloc(size_t bytes) {
     return malloc(bytes);
@@ -13,7 +14,6 @@ void my_free(size_t bytes, void *ptr) {
 }
 
 int main() {
-    char *buf[30];
     Allocator alloc = {
         .free = my_free,
         .alloc = my_alloc,
@@ -21,14 +21,27 @@ int main() {
 
     int* test = array(int, &alloc);
 
-    for (size_t i = 0; i < 100; i++) {
-        array_append(test, i);
-    }
-    for (size_t i = 0; i < 100; i++) {
-        printf("int: %d\n", test[i]);
+    printf("Hello world!\n");
+
+    const int width = 1920;
+    const int height = 1080;
+
+    InitWindow(width, height, "Piles");
+
+    SetTargetFPS(60);
+
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+
+        Color BG_COLOR = {19, 20, 29, 1};
+        ClearBackground(BG_COLOR);
+        DrawText("Piles", 190, 200, 200, RAYWHITE);
+
+        EndDrawing();
     }
 
-    printf("Hello world!\n");
+
+    CloseWindow();
 
     return 0;
 }
